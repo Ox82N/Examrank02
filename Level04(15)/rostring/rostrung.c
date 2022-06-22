@@ -1,0 +1,50 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rostrung.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: obenjair <obenjair@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/16 17:45:42 by obenjair          #+#    #+#             */
+/*   Updated: 2022/06/17 21:24:09 by obenjair         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+#include <stdio.h>
+
+void	rostring(char *str)
+{
+	int		i;
+	int		k;
+
+	if (*str)
+	{
+		i = 0;
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		k = i;
+		while (str[i] && str[i] != ' ' && str[i] != '\t')
+			i++;
+		while (str[i])
+		{
+			if (str[i] && (str[i] != ' ' && str[i] != '\t') && (str[i - 1] == ' ' || str[i - 1] == '\t'))
+			{
+				while (str[i] && (str[i] != ' ' && str[i] != '\t'))
+					write(1, &str[i++], 1);
+				write(1, " ", 1);
+			}
+			i++;
+		}
+		while (str[k] && (str[k] != ' ' && str[k] != '\t'))
+			write(1, &str[k++], 1);
+	}
+}
+
+int		main(int argc, char *argv[])
+{
+	if (argc > 1)
+		rostring(argv[1]);
+	write(1, "\n", 1);
+	return (0);
+}
